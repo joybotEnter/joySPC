@@ -19,66 +19,83 @@
                         <img src="~/images/logo.png" alt="SPC Logo" style="height: 36px; width: auto;" />
                         <span>SPC</span>
                     </a>                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Employees/Index">Employees</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Reports/Index">Reports</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                            </li>
-                        </ul>
-                        <span id="navLiveDateTime" class="navbar-text" style="font-size: 0.85rem; white-space: nowrap; color: #d9cdb4;"></span>
-                    </div>
+                                                aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Employees/Index">Employees</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Reports/Index">Reports</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                    <span id="navLiveDateTime" class="navbar-text" style="font-size: 0.85rem; white-space: nowrap; color: #d9cdb4;"></span>
                 </div>
-            </nav>
-        </header>
-        <div class="container-fluid px-0">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid px-0">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="corp-footer">
+        &copy; 2026 - State Properties Corporation - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    </footer>
+
+    <!-- FAQ Chatbot Widget -->
+    <button id="corpChatToggle" class="corp-chat-toggle" aria-expanded="false" aria-label="Open chat">
+        <i class="bi bi-chat-dots-fill"></i>
+    </button>
+    <div id="corpChatPanel" class="corp-chat-panel">
+        <div class="corp-chat-header">
+            <strong>Ask Us Anything</strong>
+            <button id="corpChatClose" class="corp-chat-close" aria-label="Close chat">&times;</button>
         </div>
+        <div id="corpChatLog" class="corp-chat-log"></div>
+        <form id="corpChatForm" class="corp-chat-form">
+            <input id="corpChatInput" class="corp-chat-input" type="text" placeholder="Type a question..." autocomplete="off" />
+            <button type="submit" class="corp-chat-send">Send</button>
+        </form>
+    </div>
 
-        <footer class="corp-footer">
-            &copy; 2026 - State Properties Corporation - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/chatbot.js" asp-append-version="true"></script>
 
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+                function updateNavLiveDateTime() {
+                    var el = document.getElementById('navLiveDateTime');
+                    if (!el) return;
 
-        <script>
-                    function updateNavLiveDateTime() {
-                        var el = document.getElementById('navLiveDateTime');
-                        if (!el) return;
+                    var now = new Date();
+                    var options = {
+                        weekday: 'short',
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    };
 
-                        var now = new Date();
-                        var options = {
-                            weekday: 'short',
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            second: '2-digit'
-                        };
+                    el.textContent = now.toLocaleString(undefined, options);
+                }
 
-                        el.textContent = now.toLocaleString(undefined, options);
-                    }
+                updateNavLiveDateTime();
+                setInterval(updateNavLiveDateTime, 1000);
+    </script>
 
-                    updateNavLiveDateTime();
-                    setInterval(updateNavLiveDateTime, 1000);
-        </script>
-
-        @await RenderSectionAsync("Scripts", required: false)
-    </body>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
 </html>
