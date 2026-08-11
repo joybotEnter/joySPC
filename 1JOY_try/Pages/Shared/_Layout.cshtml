@@ -6,9 +6,9 @@
     <title>@ViewData["Title"] - _1JOY_try</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/_1JOY_try.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
 </head>
 <body>
     <header>
@@ -72,6 +72,18 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/chatbot.js" asp-append-version="true"></script>
+    <script src="~/js/cookie-consent.js" asp-append-version="true"></script>
+
+    <div id="corpCookieBanner" class="corp-cookie-banner">
+        <p>
+            We use minimal, functional cookies (like remembering this choice) to run this site.
+            See our <a asp-area="" asp-page="/Privacy">Privacy Policy</a> for details.
+        </p>
+        <div class="corp-cookie-actions">
+            <button id="corpCookieDecline" type="button" class="corp-cookie-btn corp-cookie-btn-decline">Decline</button>
+            <button id="corpCookieAccept" type="button" class="corp-cookie-btn corp-cookie-btn-accept">Accept</button>
+        </div>
+    </div>
 
     <script>
                 function updateNavLiveDateTime() {

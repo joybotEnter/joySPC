@@ -57,6 +57,10 @@
 
     var VERSAILLES_INFO = "Versailles is our flagship 78.6-hectare high-end residential/commercial subdivision, strategically located adjacent to Ayala Alabang Village. Development began in 2005 through our subsidiary State Properties Corporation, and the property is valued at approximately ₱15.75 billion.";
 
+    var NOTABLE_PROJECTS = "Our notable projects include Versailles (our 78.6-hectare flagship subdivision), Steag State Power Inc. (a ₱13.5 billion power plant joint venture in Cagayan de Oro City), our early Metro Manila condominium developments, and additional group-owned assets along EDSA lined up for future development.";
+
+    var LEADERSHIP_NOTE = "Leadership and management team details are on our Home page under 'Leadership Team.' For specific inquiries about our executives, please contact us at " + CONTACT_EMAIL + ".";
+
     function valuesHtml() {
         return "Our core values are:<ul style=\"margin:6px 0 0 18px; padding:0;\">"
             + "<li><strong>Concern for Honor</strong> — The trust of the client is a gift that we cherish and protect with great care. We honor our commitment.</li>"
@@ -97,6 +101,14 @@
         {
             keywords: ["values", "core values", "what do you stand for", "company culture"],
             html: valuesHtml()
+        },
+        {
+            keywords: ["projects", "portfolio", "notable projects", "steag", "power plant", "condominium"],
+            answer: NOTABLE_PROJECTS
+        },
+        {
+            keywords: ["leadership", "management team", "ceo", "chairman", "executives", "who runs"],
+            answer: LEADERSHIP_NOTE
         },
         {
             keywords: ["about", "what do you do", "what does the company do", "who are you", "company profile"],
