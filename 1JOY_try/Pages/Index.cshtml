@@ -1,0 +1,142 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="corp-page">
+    <div class="corp-hero">
+        <h1>STATE PROPERTIES CORPORATION</h1>
+        <div class="divider"></div>
+        <p>The wholly-owned real estate arm of State Investment Trust, Inc., developing premier properties since 1975.</p>
+    </div>
+
+    <div id="companyCarousel" class="carousel slide corp-carousel-wrap" data-bs-ride="carousel" data-bs-interval="4000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/images/1.jfif" class="d-block w-100 h-100" style="object-fit:cover;" alt="Company photo 1">
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/2.jfif" class="d-block w-100 h-100" style="object-fit:cover;" alt="Company photo 2">
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/3.jpg" class="d-block w-100 h-100" style="object-fit:cover;" alt="Company photo 3">
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/4.jfif" class="d-block w-100 h-100" style="object-fit:cover;" alt="Company photo 4">
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/5.jfif" class="d-block w-100 h-100" style="object-fit:cover;" alt="Company photo 5">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#companyCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#companyCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#companyCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#companyCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#companyCarousel" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#companyCarousel" data-bs-slide-to="3"></button>
+            <button type="button" data-bs-target="#companyCarousel" data-bs-slide-to="4"></button>
+        </div>
+    </div>
+
+    <div class="corp-stats">
+        <div class="corp-stat">
+            <div class="number">1964</div>
+            <div class="label">Group Founded</div>
+        </div>
+        <div class="corp-stat">
+            <div class="number">1975</div>
+            <div class="label">SPC Organized</div>
+        </div>
+        <div class="corp-stat">
+            <div class="number">78.6</div>
+            <div class="label">Hectares — Versailles</div>
+        </div>
+    </div>
+
+    <div class="corp-section">
+        <h2>Corporate Profile — State Properties Corporation</h2>
+        <div class="divider-small"></div>
+        <p>
+            State Properties Corporation is a wholly owned real estate arm of State Investment Trust, Inc.,
+            originally organized in 1975 under the name Peltan, Inc., and renamed State Properties Corporation
+            in 1995. The company is currently developing its 78.6-hectare prime property into a high-end
+            subdivision aptly called <strong>Versailles</strong>. Strategically located adjacent to Ayala Alabang
+            Village, it caters to the country's upper income strata and is also being marketed to Filipinos
+            based in the United States and Europe.
+        </p>
+        <p>
+            Other group-owned assets located along EDSA in Metropolitan Manila are also lined up for future
+            development.
+        </p>
+    </div>
+
+    <div class="corp-section">
+        <h2>Corporate Profile — State Investment House, Inc.</h2>
+        <div class="divider-small"></div>
+        <p>
+            State Investment House, Inc. is an investment house providing an array of financial products and
+            services through its different licenses and special authorities granted by the Bangko Sentral ng
+            Pilipinas (BSP) and the Securities and Exchange Commission (SEC).
+        </p>
+    </div>
+
+    <div class="corp-section">
+        <h2>Our History</h2>
+        <div class="divider-small"></div>
+        <ul class="corp-timeline">
+            <li><strong>1964</strong> — Started operation.</li>
+            <li><strong>1974</strong> — Granted a quasi-banking authority by the Bangko Sentral ng Pilipinas (BSP).</li>
+            <li><strong>1975</strong> — Ventured into various real estate developments with condominium projects in Manila, Makati, Greenhills, Iloilo, and Bacolod.</li>
+            <li><strong>1982</strong> — Became the first investment house to be granted a Trust License.</li>
+            <li><strong>2001</strong> — Set up a joint venture, Steag State Power Inc., with STEAG AG of Germany, to build and operate a ₱13.5 billion 210-megawatt power plant in Cagayan de Oro City, with EPC awarded to Kawasaki-Nissho Iwai — a major development in Southern Philippines.</li>
+            <li><strong>2005</strong> — Through its wholly-owned subsidiary, State Properties Corporation, ventured into the development of Versailles, a high-end residential/commercial subdivision in Alabang — a 78-hectare property valued at ₱15.75 billion.</li>
+        </ul>
+    </div>
+
+    <div class="corp-section" style="border-bottom:none;">
+        <h2>Our Values</h2>
+        <div class="divider-small"></div>
+        <div class="corp-values-grid">
+            <div class="corp-value-card">
+                <h3>Concern for Honor</h3>
+                <p>The trust of the client is a gift that we cherish and protect with great care. We honor our commitment.</p>
+            </div>
+            <div class="corp-value-card">
+                <h3>Respect for Tradition</h3>
+                <p>In a world of sweeping changes, we find stability in the virtues earned from tradition such as integrity, hard work, discipline and cooperation.</p>
+            </div>
+            <div class="corp-value-card">
+                <h3>Loyalty to Service</h3>
+                <p>Business is reciprocity. Patronage deserves reciprocal service in terms of utmost professionalism, courtesy and dependability.</p>
+            </div>
+            <div class="corp-value-card">
+                <h3>Commitment to Excellence</h3>
+                <p>We premise our institutional relevance on the continuous refinement and upgrading of our knowledge, skills, capabilities and services.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="corp-cta">
+        <a asp-page="/Employees/Index" class="btn-corp">VIEW EMPLOYEES</a>
+    </div>
+
+    <div class="corp-section" style="border-bottom:none; padding-bottom: 0;">
+        <h2>Connect With Us</h2>
+        <div class="divider-small"></div>
+        <div class="corp-link-bar">
+            <a href="https://stateinvestment.com.ph/" class="corp-link-item" target="_blank" rel="noopener">SIHI</a>
+            <a href="https://statepropertiescorp.com/" class="corp-link-item" target="_blank" rel="noopener">SPC</a>
+            <a href="https://www.facebook.com/statepropertiesofficial" class="corp-link-item" target="_blank" rel="noopener"><i class="bi bi-facebook"></i> SPC</a>
+            <a href="https://versailles.com.ph/" class="corp-link-item" target="_blank" rel="noopener">Versailles</a>
+            <a href="https://www.instagram.com/versaillesalabangofficial/" class="corp-link-item" target="_blank" rel="noopener"><i class="bi bi-instagram"></i> Versailles</a>
+            <a href="https://www.facebook.com/versaillesalabangofficial" class="corp-link-item" target="_blank" rel="noopener"><i class="bi bi-facebook"></i> Versailles</a>
+            <a href="https://www.facebook.com/versaillestownplaza" class="corp-link-item" target="_blank" rel="noopener"><i class="bi bi-facebook"></i> VTP</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,219 @@
+﻿@page
+@model _1JOY_try.Pages_Reports.IndexModel
+
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<div class="corp-page">
+    <div class="corp-emp-header">
+        <h1>REPORTS & STATISTICS</h1>
+        <div class="divider"></div>
+        <p>A snapshot of your workforce.</p>
+    </div>
+
+    <div class="corp-emp-body">
+        <form method="get" class="corp-search-form" style="margin-bottom: 24px;">
+            <select name="DepartmentId" asp-items="Model.DepartmentList" class="form-control">
+                <option value="">All Departments</option>
+            </select>
+
+            <div class="corp-date-filter-group">
+                <label class="corp-date-filter-label">Hired between:</label>
+                <div class="corp-date-filter-inputs">
+                    <input type="date" name="StartDate" value="@Model.StartDate?.ToString("yyyy-MM-dd")" class="form-control" title="Hired on or after" />
+                    <span>–</span>
+                    <input type="date" name="EndDate" value="@Model.EndDate?.ToString("yyyy-MM-dd")" class="form-control" title="Hired on or before" />
+                </div>
+            </div>
+
+            <label class="corp-checkbox-filter">
+                <input type="checkbox" name="IncludeAllStatuses" value="true" @(Model.IncludeAllStatuses ? "checked" : "") />
+                Include Inactive &amp; Resigned
+            </label>
+
+            <button type="submit" class="btn-corp">Apply Filters</button>
+            <a asp-page="./Index" class="btn-corp-action">Clear</a>
+            <a asp-page="./Index"
+               asp-page-handler="ExportPdf"
+               asp-route-DepartmentId="@Model.DepartmentId"
+               asp-route-StartDate="@Model.StartDate?.ToString("yyyy-MM-dd")"
+               asp-route-EndDate="@Model.EndDate?.ToString("yyyy-MM-dd")"
+               asp-route-IncludeAllStatuses="@Model.IncludeAllStatuses"
+               class="btn-corp-action">
+                Export PDF
+            </a>
+        </form>
+
+        <p style="font-size:0.8rem; color:#888; margin-top:-12px; margin-bottom:20px;">
+            @(Model.IncludeAllStatuses ? "Showing employees of all statuses." : "Showing Active employees only.")
+        </p>
+
+        @if (Model.TotalEmployees == 0)
+        {
+            <div class="corp-empty-state">
+                <p>No employees match this filter.</p>
+            </div>
+        }
+        else
+        {
+            <div class="corp-card-grid corp-card-grid-3" style="margin-bottom: 30px;">
+                <div class="corp-emp-card" style="padding: 20px; text-align: center;">
+                    <p class="corp-emp-detail" style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Total Employees</p>
+                    <h2 style="color:#0b1f3a; margin: 8px 0 0;">@Model.TotalEmployees</h2>
+                </div>
+                <div class="corp-emp-card" style="padding: 20px; text-align: center;">
+                    <p class="corp-emp-detail" style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Average Salary</p>
+                    <h2 style="color:#0b1f3a; margin: 8px 0 0;">@Model.AverageSalary.ToString("C")</h2>
+                </div>
+                <div class="corp-emp-card" style="padding: 20px; text-align: center;">
+                    <p class="corp-emp-detail" style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Total Payroll</p>
+                    <h2 style="color:#0b1f3a; margin: 8px 0 0;">@Model.TotalPayroll.ToString("C")</h2>
+                </div>
+            </div>
+
+            <div class="corp-card-grid corp-card-grid-2" style="margin-bottom: 30px;">
+                <div class="corp-emp-card" style="padding: 16px;">
+                    <p class="corp-emp-detail" style="font-size: 0.8rem; text-transform: uppercase;">Highest Paid</p>
+                    <p style="margin:4px 0; font-weight:600;">@Model.HighestPaid?.FullName</p>
+                    <p class="corp-emp-detail">@Model.HighestPaid?.Salary.ToString("C")</p>
+                </div>
+                <div class="corp-emp-card" style="padding: 16px;">
+                    <p class="corp-emp-detail" style="font-size: 0.8rem; text-transform: uppercase;">Lowest Paid</p>
+                    <p style="margin:4px 0; font-weight:600;">@Model.LowestPaid?.FullName</p>
+                    <p class="corp-emp-detail">@Model.LowestPaid?.Salary.ToString("C")</p>
+                </div>
+                <div class="corp-emp-card" style="padding: 16px;">
+                    <p class="corp-emp-detail" style="font-size: 0.8rem; text-transform: uppercase;">Most Recent Hire</p>
+                    <p style="margin:4px 0; font-weight:600;">@Model.MostRecentHire?.FullName</p>
+                    <p class="corp-emp-detail">@Model.MostRecentHire?.DateHired.ToShortDateString()</p>
+                </div>
+                <div class="corp-emp-card" style="padding: 16px;">
+                    <p class="corp-emp-detail" style="font-size: 0.8rem; text-transform: uppercase;">Longest Tenured</p>
+                    <p style="margin:4px 0; font-weight:600;">@Model.LongestTenured?.FullName</p>
+                    <p class="corp-emp-detail">@Model.LongestTenured?.DateHired.ToShortDateString()</p>
+                </div>
+            </div>
+
+            <h3 style="color:#0b1f3a;">Salary Range</h3>
+            <hr />
+            <div class="corp-card-grid corp-card-grid-3" style="margin-bottom: 30px;">
+                <div class="corp-emp-card" style="padding: 16px; text-align: center;">
+                    <p class="corp-emp-detail" style="font-size: 0.8rem; text-transform: uppercase;">Minimum</p>
+                    <p style="margin:4px 0; font-weight:600;">@Model.MinSalary.ToString("C")</p>
+                </div>
+                <div class="corp-emp-card" style="padding: 16px; text-align: center;">
+                    <p class="corp-emp-detail" style="font-size: 0.8rem; text-transform: uppercase;">Median</p>
+                    <p style="margin:4px 0; font-weight:600;">@Model.MedianSalary.ToString("C")</p>
+                </div>
+                <div class="corp-emp-card" style="padding: 16px; text-align: center;">
+                    <p class="corp-emp-detail" style="font-size: 0.8rem; text-transform: uppercase;">Maximum</p>
+                    <p style="margin:4px 0; font-weight:600;">@Model.MaxSalary.ToString("C")</p>
+                </div>
+            </div>
+
+            <h3 style="color:#0b1f3a;">Top 5 Highest Paid</h3>
+            <hr />
+            <table class="table" style="margin-bottom: 30px;">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var rank = 1;
+                    }
+                    @foreach (var emp in Model.TopFiveHighestPaid)
+                    {
+                        <tr>
+                            <td>@rank</td>
+                            <td>@emp.FullName</td>
+                            <td>@emp.Position</td>
+                            <td>@emp.Salary.ToString("C")</td>
+                        </tr>
+                        rank++;
+                    }
+                </tbody>
+            </table>
+
+            <h3 style="color:#0b1f3a;">By Department</h3>
+            <hr />
+            <table class="table" style="margin-bottom: 30px;">
+                <thead>
+                    <tr>
+                        <th>Department</th>
+                        <th>Employees</th>
+                        <th>Average Salary</th>
+                        <th>Payroll Share</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var stat in Model.DepartmentStats)
+                    {
+                        <tr>
+                            <td>@stat.DepartmentName</td>
+                            <td>@stat.EmployeeCount</td>
+                            <td>@stat.AverageSalary.ToString("C")</td>
+                            <td>@stat.PayrollSharePercent.ToString("F1")%</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <h3 style="color:#0b1f3a;">By Position</h3>
+            <hr />
+            <table class="table" style="margin-bottom: 30px;">
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Employees</th>
+                        <th>Average Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var stat in Model.PositionStats)
+                    {
+                        <tr>
+                            <td>@stat.Position</td>
+                            <td>@stat.EmployeeCount</td>
+                            <td>@stat.AverageSalary.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <h3 style="color:#0b1f3a;">Hiring Trend by Year</h3>
+            <hr />
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Hires</th>
+                        <th style="width: 50%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var trend in Model.HiringTrend)
+                    {
+                        <tr>
+                            <td>@trend.Year</td>
+                            <td>@trend.HireCount</td>
+                            <td>
+                                @{
+                                    var barPercent = Model.MaxHireCount > 0
+                                        ? trend.HireCount * 100 / Model.MaxHireCount
+                                        : 0;
+                                }
+                                <div style="background:#0b1f3a; height: 14px; min-width: 3px; width: @(barPercent)%; border-radius: 2px;"></div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

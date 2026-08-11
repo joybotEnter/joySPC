@@ -1,0 +1,76 @@
+@page
+@model _1JOY_try.Pages_Employees.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="corp-page">
+    <div class="corp-emp-header">
+        <h1>EDIT EMPLOYEE</h1>
+        <div class="divider"></div>
+        <p>@Model.Employee.FullName</p>
+    </div>
+
+    <div class="corp-emp-body" style="max-width: 600px;">
+        <div style="background:white; border:1px solid #e5decb; border-top:3px solid #c9a24b; padding:30px; box-shadow: 0 2px 10px rgba(11,31,58,0.08);">
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Employee.Id" />
+                <input type="hidden" asp-for="Employee.PhotoPath" />
+
+                @if (!string.IsNullOrEmpty(Model.Employee.PhotoPath))
+                {
+                    <div style="margin-bottom:16px;">
+                        <img src="@Model.Employee.PhotoPath" alt="Current photo" style="width:100%; max-height:200px; object-fit:cover;" />
+                    </div>
+                }
+
+                <div class="form-group mb-3">
+                    <label class="control-label">Replace Photo (optional)</label>
+                    <input type="file" name="PhotoFile" class="form-control" accept="image/*" />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Employee.FullName" class="control-label"></label>
+                    <input asp-for="Employee.FullName" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Employee.FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Employee.Email" class="control-label"></label>
+                    <input asp-for="Employee.Email" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Employee.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Employee.DepartmentId" class="control-label">Department</label>
+                    <select asp-for="Employee.DepartmentId" asp-items="Model.DepartmentList" class="form-control">
+                        <option value="">-- Select Department --</option>
+                    </select>
+                    <span asp-validation-for="Employee.DepartmentId" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Employee.Position" class="control-label"></label>
+                    <input asp-for="Employee.Position" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Employee.Position" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Employee.Salary" class="control-label"></label>
+                    <input asp-for="Employee.Salary" class="form-control" />
+                    <span asp-validation-for="Employee.Salary" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Employee.DateHired" class="control-label"></label>
+                    <input asp-for="Employee.DateHired" class="form-control" />
+                    <span asp-validation-for="Employee.DateHired" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <input type="submit" value="SAVE CHANGES" class="btn-corp" style="border:none; cursor:pointer;" />
+                </div>
+            </form>
+        </div>
+
+        <div style="margin-top: 16px;">
+            <a asp-page="Index" style="color:#0b1f3a;">← Back to Team</a>
+        </div>
+    </div>
+</div>

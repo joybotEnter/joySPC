@@ -1,0 +1,113 @@
+@page
+@model _1JOY_try.Pages_Employees.IndexModel
+
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<div class="corp-page">
+    <div class="corp-emp-header">
+        <h1>OUR TEAM</h1>
+        <div class="divider"></div>
+        <p>Meet the people behind State Properties Corporation.</p>
+    </div>
+
+    <div class="corp-emp-body">
+        <div class="corp-emp-toolbar">
+            <a asp-page="Create" class="btn-corp">+ ADD EMPLOYEE</a>
+
+            <form method="get" class="corp-search-form">
+                <input type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search by name or position..." class="form-control" />
+
+                <select name="DepartmentId" asp-items="Model.DepartmentList" class="form-control">
+                    <option value="">All Departments</option>
+                </select>
+
+                <select name="StatusFilter" asp-for="StatusFilter" asp-items="Html.GetEnumSelectList<EmployeeStatus>()" class="form-control">
+                    <option value="">All Statuses</option>
+                </select>
+
+                <div class="corp-date-filter-group">
+                    <label class="corp-date-filter-label">Hired between:</label>
+                    <div class="corp-date-filter-inputs">
+                        <input type="date" name="StartDate" value="@Model.StartDate?.ToString("yyyy-MM-dd")" class="form-control" title="Hired on or after" />
+                        <span>–</span>
+                        <input type="date" name="EndDate" value="@Model.EndDate?.ToString("yyyy-MM-dd")" class="form-control" title="Hired on or before" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-corp">Search</button>
+            </form>
+        </div>
+
+        <div class="corp-sort-bar">
+            Sort by:
+            <a asp-page="./Index" asp-route-SortOrder="name" asp-route-SearchTerm="@Model.SearchTerm" asp-route-DepartmentId="@Model.DepartmentId" asp-route-StatusFilter="@Model.StatusFilter" asp-route-StartDate="@Model.StartDate?.ToString("yyyy-MM-dd")" asp-route-EndDate="@Model.EndDate?.ToString("yyyy-MM-dd")">Name</a> |
+            <a asp-page="./Index" asp-route-SortOrder="position" asp-route-SearchTerm="@Model.SearchTerm" asp-route-DepartmentId="@Model.DepartmentId" asp-route-StatusFilter="@Model.StatusFilter" asp-route-StartDate="@Model.StartDate?.ToString("yyyy-MM-dd")" asp-route-EndDate="@Model.EndDate?.ToString("yyyy-MM-dd")">Position</a> |
+            <a asp-page="./Index" asp-route-SortOrder="salary" asp-route-SearchTerm="@Model.SearchTerm" asp-route-DepartmentId="@Model.DepartmentId" asp-route-StatusFilter="@Model.StatusFilter" asp-route-StartDate="@Model.StartDate?.ToString("yyyy-MM-dd")" asp-route-EndDate="@Model.EndDate?.ToString("yyyy-MM-dd")">Salary</a> |
+            <a asp-page="./Index" asp-route-SortOrder="date" asp-route-SearchTerm="@Model.SearchTerm" asp-route-DepartmentId="@Model.DepartmentId" asp-route-StatusFilter="@Model.StatusFilter" asp-route-StartDate="@Model.StartDate?.ToString("yyyy-MM-dd")" asp-route-EndDate="@Model.EndDate?.ToString("yyyy-MM-dd")">Date Hired</a>
+        </div>
+
+        @if (Model.Employee.Any())
+        {
+            <div class="corp-card-grid">
+                @foreach (var item in Model.Employee)
+                {
+                    <div class="corp-emp-card">
+                        <div class="corp-emp-photo">
+                            @if (!string.IsNullOrEmpty(item.PhotoPath))
+                            {
+                                <img src="@item.PhotoPath" alt="@item.FullName" />
+                            }
+                            else
+                            {
+                                <div class="corp-emp-photo-placeholder">👤</div>
+                            }
+                        </div>
+                        <div class="corp-emp-body-inner">
+                            <div class="corp-emp-badge-row">
+                                <div class="corp-emp-id">ID #@item.Id</div>
+                                <span class="corp-status-badge corp-status-@item.Status.ToString().ToLower()">@item.Status</span>
+                            </div>
+                            <h3>@item.FullName</h3>
+                            <p class="corp-emp-position">@item.Position</p>
+                            <p class="corp-emp-detail">@item.Email</p>
+                            <p class="corp-emp-detail">@item.Salary.ToString("C")</p>
+                            <p class="corp-emp-detail">Hired @item.DateHired.ToShortDateString()</p>
+                            <p class="corp-emp-detail">Department: @(item.Department?.Name ?? "Unassigned")</p>
+                            <div class="corp-emp-actions">
+                                <a class="btn-corp-action" asp-page="Edit" asp-route-id="@item.Id">Edit</a>
+                                <a class="btn-corp-action" asp-page="Details" asp-route-id="@item.Id">View</a>
+                                <a class="btn-corp-action danger" asp-page="Delete" asp-route-id="@item.Id">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @if (Model.TotalPages > 1)
+            {
+                <div class="corp-pagination">
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <a asp-page="./Index"
+                           asp-route-PageNumber="@i"
+                           asp-route-SearchTerm="@Model.SearchTerm"
+                           asp-route-SortOrder="@Model.SortOrder"
+                           asp-route-DepartmentId="@Model.DepartmentId"
+                           asp-route-StatusFilter="@Model.StatusFilter"
+                           asp-route-StartDate="@Model.StartDate?.ToString("yyyy-MM-dd")"
+                           asp-route-EndDate="@Model.EndDate?.ToString("yyyy-MM-dd")"
+                           class="@(i == Model.PageNumber ? "active" : "")">@i</a>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            <div class="corp-empty-state">
+                <p>No employees found@(string.IsNullOrEmpty(Model.SearchTerm) ? "." : $" for \"{Model.SearchTerm}\".")</p>
+            </div>
+        }
+    </div>
+</div>

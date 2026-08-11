@@ -1,0 +1,43 @@
+@page
+@model _1JOY_try.Pages_Employees.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="corp-page">
+    <div class="corp-emp-header" style="background: linear-gradient(135deg, #4a1414, #6b1f1f);">
+        <h1>REMOVE EMPLOYEE</h1>
+        <div class="divider" style="background:#d97a7a;"></div>
+        <p>Please confirm you want to remove this record.</p>
+    </div>
+
+    <div class="corp-emp-body" style="max-width: 600px;">
+        <div style="background:white; border:1px solid #e5decb; border-top:3px solid #a83232; box-shadow: 0 2px 10px rgba(11,31,58,0.08); overflow:hidden;">
+            <div class="corp-emp-photo" style="height:220px;">
+                @if (!string.IsNullOrEmpty(Model.Employee.PhotoPath))
+                {
+                    <img src="@Model.Employee.PhotoPath" alt="@Model.Employee.FullName" />
+                }
+                else
+                {
+                    <div class="corp-emp-photo-placeholder">👤</div>
+                }
+            </div>
+            <div class="corp-emp-body-inner">
+                <div class="corp-emp-id">ID #@Model.Employee.Id</div>
+                <h3>@Model.Employee.FullName</h3>
+                <p class="corp-emp-position">@Model.Employee.Position</p>
+                <p class="corp-emp-detail"><strong>Email:</strong> @Model.Employee.Email</p>
+                <p class="corp-emp-detail"><strong>Salary:</strong> @Model.Employee.Salary.ToString("C")</p>
+                <p class="corp-emp-detail"><strong>Date Hired:</strong> @Model.Employee.DateHired.ToShortDateString()</p>
+            </div>
+        </div>
+
+        <form method="post" style="margin-top: 20px; display:flex; gap:10px;">
+            <input type="hidden" asp-for="Employee.Id" />
+            <input type="submit" value="CONFIRM DELETE" class="btn-corp-action danger" style="flex:none; padding:10px 24px; cursor:pointer; background:white;" />
+            <a asp-page="Index" style="color:#0b1f3a; align-self:center;">Cancel</a>
+        </form>
+    </div>
+</div>

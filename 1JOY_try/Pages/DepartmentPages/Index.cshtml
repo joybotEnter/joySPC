@@ -1,0 +1,40 @@
+@page
+@model _1JOY_try.Pages_Departments.IndexModel
+
+@{
+    ViewData["Title"] = "Departments";
+}
+
+<div class="corp-page">
+    <div class="corp-emp-header">
+        <h1>DEPARTMENTS</h1>
+        <div class="divider"></div>
+    </div>
+
+    <div class="corp-emp-body">
+        <div class="corp-emp-toolbar">
+            <a asp-page="Create" class="btn-corp">+ ADD DEPARTMENT</a>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Department)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>
+                            <a asp-page="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-page="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
